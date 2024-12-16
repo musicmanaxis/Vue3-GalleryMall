@@ -38,24 +38,23 @@ import { reactive } from 'vue';
 
  export default{
   name:'HomeComponent',
-  components:{
-    Card:CardComponent,
-    setup(){
-      const state=reactive({
+  components:{Card:CardComponent},
+  setup(){
+    const state=reactive({
         items:[]
-      })
+    })
 
       axios.get("/api/items").then(({data})=>{
+        console.log(data)
         state.items=data;
     })
     
     return{
       state
     }
+    }
+  }
 
-  }
-  }
-}
 
 
 </script>

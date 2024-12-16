@@ -8,16 +8,17 @@
 
 <script>
 import HeaderComponent from './components/Header.vue';
-import FooterComponent from './components/Footer.vue';
 import HomeComponent from './pages/Home.vue';
+import FooterComponent from './components/Footer.vue';
+
 
 export default {
   name: 'App',
   components: {
    Header:HeaderComponent,
-   Footer:FooterComponent,
    Home:HomeComponent,
-
+   Footer:FooterComponent,
+   
   }
 }
 </script>
