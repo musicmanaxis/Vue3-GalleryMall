@@ -23,6 +23,9 @@
 
 export default{
   name:'CardComponent',
+  props:{
+    item:String
+  }
 }
 
 

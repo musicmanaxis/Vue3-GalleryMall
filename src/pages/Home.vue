@@ -18,8 +18,10 @@
    <div class="container">
        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-          <div class="col" v-for= "i in 12" :key="i">    <!-- ** <Card />컴포넌트  12개 삽입 -->
-            <Card />
+          <div class="col" v-for= "(item, index) in state.items" :key="index">  
+            
+            {{ item }}
+            <Card :item="item"/>
             
          </div>
        </div>
@@ -30,13 +32,28 @@
 
 
 <script>
+import axios from 'axios';
 import CardComponent from '../components/Card.vue'
+import { reactive } from 'vue';
 
  export default{
   name:'HomeComponent',
   components:{
     Card:CardComponent,
+    setup(){
+      const state=reactive({
+        items:[]
+      })
 
+      axios.get("/api/items").then(({data})=>{
+        state.items=data;
+    })
+    
+    return{
+      state
+    }
+
+  }
   }
 }
 
