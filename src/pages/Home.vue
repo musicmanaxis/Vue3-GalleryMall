@@ -32,7 +32,8 @@
 
 
 <script>
-import axios from 'axios';
+import axios from 'axios';  
+//http통신으로 spring서버와 데이터를 받기 위해 설정, npm install axios를 해줘야 함
 import CardComponent from '../components/Card.vue'
 import { reactive } from 'vue';
 
