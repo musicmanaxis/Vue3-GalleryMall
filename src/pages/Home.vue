@@ -34,6 +34,7 @@
 <script>
 import axios from 'axios';  
 //http통신으로 spring서버와 데이터를 받기 위해 설정, npm install axios를 해줘야 함
+//Axios는 RESTful API와 통신하기 위해 GET, POST, PUT, DELETE 같은 HTTP 메서드를 쉽게 사용할 수 있게 해줍니다.
 import CardComponent from '../components/Card.vue'
 import { reactive } from 'vue';
 
