@@ -6,7 +6,7 @@
    3-1.package.json에서 로컬pc에서 스프링서버와 충돌을 피하기 위해 뷰서버 포트번호를 3000으로 변경 
          "scripts": {"serve": "vue-cli-service serve --port 3000"}
    3-2.vue.config.js에서 spring서버의 데이터를 받기 위해
-         '/api': { target: 'http://localhost:8080'} api로 들어오는 서버를 설정함함 
+         '/api': { target: 'http://localhost:8080'} api로 들어오는 서버를 설정 
  -->
 
 <template>

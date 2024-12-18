@@ -20,7 +20,7 @@
 
           <div class="col" v-for= "(item, index) in state.items" :key="index">  
 <!-- state: 상태 관리용 객체. items: state 안의 배열로, 서버에서 가져온 데이터를 담음. item: items 배열의 각 요소로, 객체형태로 처리.-->
-            {{ item }}
+            {{ item.name }}
             <Card :item="item"/>
             <!-- item이라는 객체를 Card.vue에 넘긴다 -->
             
