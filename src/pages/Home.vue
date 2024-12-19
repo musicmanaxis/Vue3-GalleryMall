@@ -11,7 +11,7 @@
 <!-- state: 상태 관리용 객체. items: state 안의 배열로, 서버에서 가져온 데이터를 담음. item: items 배열의 각 요소로, 객체형태로 처리.-->
             {{ item.name }}
             <Card :item="item"/>
-            <!-- item이라는 객체를 Card.vue에 넘긴다 -->
+            <!-- item이라는 객체를 Card.vue에 넘긴다. 실제 디비 items테이블의 하나의 행(item)에 해당 -->
             
          </div>
        </div>
@@ -30,7 +30,9 @@ import { reactive } from 'vue';
 
  export default{
   name:'HomeComponent',
-  components:{Card:CardComponent},
+  components:{
+    Card:CardComponent
+  },
   setup(){
     const state=reactive({   //items배열을 갖는 state객체 생성
         items:[]
