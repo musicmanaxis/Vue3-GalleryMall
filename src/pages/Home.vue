@@ -1,6 +1,6 @@
 <template>
   <div class="Home">
-
+    <!-- 뷰라우터 설치:npm i vue-router  -->
 
 
   <div class="album py-5 bg-body-tertiary">
