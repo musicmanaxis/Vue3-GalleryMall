@@ -57,11 +57,11 @@
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="state.form.email">    <!-- 여기수정함 -->
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="state.form.email">    <!-- 여기 수정함 -->
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password">  <!-- 여기수정함 -->
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password">  <!-- 여기 수정함 -->
       <label for="floatingPassword">Password</label>
     </div>
 
@@ -71,7 +71,7 @@
         Remember me
       </label>
     </div>
-    <button class="btn btn-primary w-100 py-2" @click="submit()">Sign in</button>   <!-- 여기수정함 submit()-->
+    <button class="btn btn-primary w-100 py-2" @click="submit()">Sign in</button>   <!-- 여기 수정함 submit()-->
     <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
   
 </div>
