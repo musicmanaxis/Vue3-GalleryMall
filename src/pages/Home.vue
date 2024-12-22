@@ -1,6 +1,6 @@
 <template>
   <div class="Home">
-    <!-- 뷰라우터 설치:npm i vue-router  -->
+    
 
 
   <div class="album py-5 bg-body-tertiary">
@@ -44,7 +44,9 @@ import { reactive } from 'vue';
         console.log('/api/items에서 가져온 배열:'+object.data+',  배열크기:'+object.data.length)
         state.items=object.data;
     })
-    
+    //axios.get("/api/items")가 실행되면 Spring Boot 서버의 getItems() 메서드가 호출된다고 이해하면 됩니다. 
+    // 이게 클라이언트(Vue.js)와 서버(Spring Boot)가 통신하는 핵심
+    //vue.config.js파일 참조
     return{
       state  //return을 하게 되면 상단의 template에서 쓸 수 있다.
     }

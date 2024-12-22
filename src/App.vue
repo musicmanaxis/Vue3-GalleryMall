@@ -1,18 +1,23 @@
 <!--
- 개요:쇼핑몰 갤러리를 운영하는 목적으로 
- 1.vue서버를 운영하는 프론트 서버와
- 2.spring 서버(GalleyrMallBackend)를 백앤드로 두어 이 프로젝트를 진행한다. 
- 3.사전설정
-   3-1.package.json에서 로컬pc에서 스프링서버와 충돌을 피하기 위해 뷰서버 포트번호를 3000으로 변경 
-         "scripts": {"serve": "vue-cli-service serve --port 3000"}
-   3-2.vue.config.js에서 spring서버의 데이터를 받기 위해
-         '/api': { target: 'http://localhost:8080'} api로 들어오는 서버를 설정 
+개요:쇼핑몰 갤러리를 운영하는 목적으로 
+1.vue서버를 운영하는 프론트 서버와 spring 서버(GalleyrMallBackend)를 백앤드로 두어 이 프로젝트를 진행한다. 
+
+2.사전설정
+ 2-1.package.json에서 로컬pc에서 스프링서버와 충돌을 피하기 위해 뷰서버 포트번호를 3000으로 변경 
+     "scripts": {"serve": "vue-cli-service serve --port 3000"}
+ 2-2.vue.config.js에서 spring서버의 데이터를 받기 위해
+     '/api': { target: 'http://localhost:8080'} api로 시작해서  들어오는 서버를 설정, 해당파일 참조 
+
+3.vue.config.js는 url을 간소화하게 하기 위해서 미리 설정, 해당파일 참조
+
+4.main.js에서는 Vue 앱을 초기화하고, App.vue 컴포넌트를 <div id="app">에 마운트는 역할과 각 페이지 매핑의 라우터 설정을 여기서 한다.
  -->
 
 <template>
 
 <Header />
 <RouterView />
+<!-- main.js에서 라우터를 설정하여 <Home />가 필요없게 하였다. -->
 <!-- <Home /> -->
 <Footer />
 
