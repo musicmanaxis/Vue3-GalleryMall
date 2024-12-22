@@ -61,7 +61,7 @@
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password">  <!-- 여기 수정함 -->
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password">  <!-- v-model="state.form.password"는  input을 state.form.password연결하겠다는 뜻, 양방행통신가능-->
       <label for="floatingPassword">Password</label>
     </div>
 
@@ -89,7 +89,7 @@ import { reactive } from 'vue';
           password:"",
         }
 
-      })
+      })  //객체안에 객체를 넣은 형태
 
       const submit=()=>{
         axios.post("api/account/login", state.form).then((res)=>{
