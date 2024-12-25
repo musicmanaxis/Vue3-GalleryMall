@@ -91,14 +91,16 @@ import router from '../scripts/router.js'
           email:"",
           password:"",
         }
+      })
+//state객체안에 form객체를 가지고 form은 email과 password속성을 가지고 있음, 로그인할 때 email과 password를 서버로 전송
 
-      })  //객체안에 객체를 넣은 형태, state객체안에 form객체를 가지고 form은 email과 password속성을 가지고 있음
-      //로그인할 때 email과 password를 전송하기 위해
-
+//axios.post("api/account/login", state.form)의 결과로 AccountController의 member.getId()값을 반환받음
+//axios.post()는 서버로 데이터를 전송하는 메서드로, 첫번째 인자는 요청 URL, 두번째 인자는 전송할 데이터
+//axios.get()은 서버로부터 데이터를 받아오는 메서드로, 인자는 요청 URL
       const submit=()=>{
-        axios.post("api/account/login", state.form).then((res)=>{
-          store.commit('setAccount', res.data) ;
-          sessionStorage.setItem("id", res.data); //로그인 성공시 세션스포리지에 저장
+        axios.post("api/account/login", state.form).then((res)=>{ 
+          store.commit('setAccount', res.data) ;  //res.data에는 로그인에 성공한 사용자의 ID 값
+          sessionStorage.setItem("id", res.data); //세션 스토리지에 사용자 ID를 저장하여, 페이지 새로고침 후에도 로그인 상태를 유지
           router.push({path:'/'});  //로그인 성공시 홈화면으로 이동
           window.alert("로그인 하였습니다.");
         }).catch(()=>{
