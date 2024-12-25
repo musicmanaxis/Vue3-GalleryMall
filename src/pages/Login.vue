@@ -61,7 +61,7 @@
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password">  <!-- v-model="state.form.password"는  input을 state.form.password연결하겠다는 뜻, 양방행통신가능-->
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password">  <!-- v-model="state.form.password"는  input을 state.form.password연결하겠다는 뜻, 양방향 통신상태-->
       <label for="floatingPassword">Password</label>
     </div>
 
@@ -89,19 +89,23 @@ import { reactive } from 'vue';
           password:"",
         }
 
-      })  //객체안에 객체를 넣은 형태
+      })  //객체안에 객체를 넣은 형태, state객체안에 form객체를 가지고 form은 email과 password속성을 가지고 있음
+      //로그인할 때 email과 password를 전송하기 위해
 
       const submit=()=>{
         axios.post("api/account/login", state.form).then((res)=>{
-          console.log(res);
+          console.log("정보:"+res);
           window.alert("로그인 하였습니다.");
         })
       }
 
-      return {state, submit}
+      return {state, submit}  //script에서 정의하고 template에서 사용할 수 있도록 return
     }
-
   }
+//AccountController 참조
+// state.form은 클라이언트에서 서버로 전송할 로그인 데이터(email, password)를 담고 있습니다.
+// 이 데이터는 Spring AccountController의 @RequestBody Map<String, String> params에 매핑되어 처리됩니다.
+// 따라서, state가 아닌 state.form을 전송하는 것이 정확한 데이터 전달을 위한 핵심입니다.
 </script>
 
 <style scoped>
