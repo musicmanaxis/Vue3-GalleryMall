@@ -16,7 +16,10 @@
                 <!-- !$store.state.account.id가 없으면 로그인이 보이고 있으면 로그아웃이 보인다. -->
                 <a class="text-white" @click="logout()" v-else>로그아웃</a>                  
               </li>
-
+<!-- <router-link>:Vue Router 라이브러리가 제공하는 컴포넌트(<a> 태그와 유사하게 동작), 
+     페이지를 새로고침하지 않고 URL을 변경하며, 라우트와 연결된 컴포넌트를 표시,  to="/"는 라우터에서 정의된 루트 경로로 이동
+     $는 Vue가 기본적으로 제공하는 객체나 메서드라는 것을 명시적 표기법. 사용자가 정의한 변수나 메서드와 구분역할. 뷰에서 제대로 동작않 할 수도 있음
+     -->
           </ul>
         </div>
       </div>
@@ -46,7 +49,7 @@ export default{
 
   setup(){
     const logout=()=>{
-      store.commit('setAccount', 0);
+      store.commit('setAccount', 0); //로그아웃시 store.js의 setAccount에 0을 넘겨줌
       router.push({path:'/'});
       sessionStorage.removeItem("id"); //로그아웃시 세션스토리지에서 삭제
     }
