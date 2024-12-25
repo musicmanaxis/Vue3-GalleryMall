@@ -11,6 +11,8 @@
 3.vue.config.js는 url을 간소화하게 하기 위해서 미리 설정, 해당파일 참조
 
 4.main.js에서는 Vue 앱을 초기화하고, App.vue 컴포넌트를 <div id="app">에 마운트는 역할과 각 페이지 매핑의 라우터 설정을 여기서 한다.
+
+5.설치해야할것:npm, npm install axios, npm install vue-router, npm install bootstrap, npm install, npm install vuex@next --save (password 암호화->store.js도 참조), 
  -->
 
 <template>
@@ -34,8 +36,15 @@ export default {
   components: {
    Header:HeaderComponent,
    //Home:HomeComponent,
-   Footer:FooterComponent,
+   Footer:FooterComponent, 
    
+  },
+  setup(){
+    const id=sessionStorage.getItem("id");  
+
+    if(id){
+      this.store.commit('setAccount', id); //이 코드는 새로고침을 했을 때 로그인 상태가 그대로 유지 된다.
+    }
   }
 }
 </script>

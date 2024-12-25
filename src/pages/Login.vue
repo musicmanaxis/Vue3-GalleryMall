@@ -80,6 +80,9 @@
 <script>
 import axios from 'axios';
 import { reactive } from 'vue';
+import store from '../scripts/store.js'
+import router from '../scripts/router.js'
+
 
   export default{
     setup(){
@@ -94,9 +97,13 @@ import { reactive } from 'vue';
 
       const submit=()=>{
         axios.post("api/account/login", state.form).then((res)=>{
-          console.log("정보:"+res);
+          store.commit('setAccount', res.data) ;
+          sessionStorage.setItem("id", res.data); //로그인 성공시 세션스포리지에 저장
+          router.push({path:'/'});  //로그인 성공시 홈화면으로 이동
           window.alert("로그인 하였습니다.");
-        })
+        }).catch(()=>{
+          window.alert("로그인 실패하였습니다.");
+        });
       }
 
       return {state, submit}  //script에서 정의하고 template에서 사용할 수 있도록 return
