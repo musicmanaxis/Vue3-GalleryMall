@@ -50,8 +50,9 @@ export default{
   setup(){
     const logout=()=>{
       store.commit('setAccount', 0); //로그아웃시 store.js의 setAccount에 0을 넘겨줌
+      sessionStorage.removeItem("id"); //로그아웃시 브라우저의 세션스토리지에서 삭제
       router.push({path:'/'});
-      sessionStorage.removeItem("id"); //로그아웃시 세션스토리지에서 삭제
+      
     }
     return{logout}
   }

@@ -1,8 +1,8 @@
 <!-- 1.backgroundImage는 원래 css에서 background-image로 표기하지만 
                  vue는 :style을 적용할 때 자바스크립트 형식(캐멜스타일)으로 표시해야 되서 backgroundImage로 표시
-               2.{}는 JavaScript에서 객체를 정의할 때 사용 -> 키(backgroundImage) :값(`url(${item.imgPath})`)으로 객체를 만듭니다.
-               3.${}는 JavaScript 변수를 문자열에 포함시킬 수 있습니다.
-               4.css에서  background-image: url('이미지 경로')가 기본문법
+     2.{}는 JavaScript에서 객체를 정의할 때 사용 -> 키(backgroundImage) :값(`url(${item.imgPath})`)으로 객체를 만듭니다.
+     3.${}는 JavaScript 변수를 문자열에 포함시킬 수 있습니다.
+     4.css에서  background-image: url('이미지 경로')가 기본문법
            -->
 <template>
   <!-- <span>:특정 부분을 선택해 스타일을 적용하거나 조작할 때 주로 사용 -->
