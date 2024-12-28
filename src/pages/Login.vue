@@ -98,11 +98,12 @@ import router from '../scripts/router.js'
 //axios.post()는 서버로 데이터를 전송하는 메서드로, 첫번째 인자는 요청 URL, 두번째 인자는 전송할 데이터
 //axios.get()은 서버로부터 데이터를 받아오는 메서드로, 인자는 요청 URL
       const submit=()=>{
-        axios.post("api/account/login", state.form).then((res)=>{  //form이 아닌 form의 email과 password를 전송
+          axios.post("api/account/login", state.form).then((res)=>{  //form이 아닌 form의 email과 password를 전송
           store.commit('setAccount', res.data) ;  //res.data에는 로그인에 성공한 사용자의 ID 값
           sessionStorage.setItem("id", res.data); //브라우저가 제공하는 세션 스토리지에 사용자 ID를 저장하여, 페이지 새로고침 후에도 로그인 상태를 유지
           router.push({path:'/'});  //로그인 성공시 홈화면으로 이동
           window.alert("로그인 하였습니다.");
+          
         }).catch(()=>{
           window.alert("로그인 실패하였습니다.");
         });
