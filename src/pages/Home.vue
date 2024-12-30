@@ -40,9 +40,9 @@ import { reactive } from 'vue';
   //springServer에서 받아온 데이터를 state객체의 items 배열로 받는다.
   //axios.get("/api/items")로 요청하면 서버로부터의 응답 객체(response)를 받아 그 객체 속성중에 data속성이 실제 data가 들어있어 처리
      console.log('axios.get("/api/items"):'+ axios.get("/api/items"))
-      axios.get("/api/items").then((object)=>{   //then(({data})로 하면 바로 속성에 접급할수 있다.
-        console.log('/api/items에서 가져온 배열:'+object.data+',  배열크기:'+object.data.length)
-        state.items=object.data;
+     axios.get("/api/items").then((object)=>{   //then(({data})로 하면 바로 속성에 접급할수 있다.
+     console.log('/api/items에서 가져온 배열:'+object.data+',  배열크기:'+object.data.length)
+     state.items=object.data;
     })
     //axios.get("/api/items")가 실행되면 Spring Boot 서버의 getItems() 메서드가 호출된다고 이해하면 됩니다. 
     // 이게 클라이언트(Vue.js)와 서버(Spring Boot)가 통신하는 핵심

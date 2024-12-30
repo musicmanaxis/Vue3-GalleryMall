@@ -1,6 +1,6 @@
 <!--
 개요:쇼핑몰 갤러리를 운영하는 목적으로 
-1.vue서버를 운영하는 프론트 서버와 spring 서버(GalleyrMallBackend)를 백앤드로 두어 이 프로젝트를 진행한다. 
+1.vue서버를 운영하는 프론트 서버와 spring 서버(GalleyrMallBackend)를 백앤드로 둔 프로젝트.
 
 2.사전설정
  2-1.package.json에서 로컬pc에서 스프링서버와 충돌을 피하기 위해 뷰서버 포트번호를 3000으로 변경 
@@ -9,6 +9,8 @@
      '/api': { target: 'http://localhost:8080'} api로 시작해서  들어오는 서버를 설정, 해당파일 참조 
 
 3.vue.config.js는 url을 간소화하게 하기 위해서 미리 설정, 해당파일 참조
+  현재, 스프링을 사용하는 컴포넌트는  Home.vue와 Login.vue에서 axios.get("/api/items")와 axios.post("api/account/login", state.form)로 요청하고 있다.
+  http://localhost:3000/api/items로 요청하면 데이터가 날라오는데  http://localhost:3000 → Vue.js(프론트엔드) /api/items → Spring Boot(백엔드)구조로 되어있다.
 
 4.main.js에서는 Vue 앱을 초기화하고, App.vue 컴포넌트를 <div id="app">에 마운트는 역할과 각 페이지 매핑의 라우터 설정을 여기서 한다.
 
