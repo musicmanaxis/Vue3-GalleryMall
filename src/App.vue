@@ -20,7 +20,9 @@
 <template>
 
 <Header />
-<RouterView />
+<RouterView /> 
+<!-- router.js에서 vue-router가 제공하는 태그로  router.js에서 설정한 routes경로가 여기에 렌더링 된다. 별도로 import가 필요없음
+이것으로 인해서 header와 footer는 가만히 있는 상태에서 url에 따라 중간화면이 home이나 login페이지가 바뀐다-->
 <!-- main.js에서 라우터를 설정하여 <Home />가 필요없게 하였다. -->
 <!-- <Home /> -->
 <Footer />
@@ -54,8 +56,8 @@ export default {
     
     const route=useRoute();  //router.js에서 만든 라우터객체를 가져옴
 
-    watch(route, ()=>{
-      check();
+    watch(route, ()=>{  
+      check();    //라우터에 매핑되어 있는 리스트에서 url이 바뀔때마다 check()를 실행
     })
   }
 }
