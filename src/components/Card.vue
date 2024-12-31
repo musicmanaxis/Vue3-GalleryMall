@@ -43,7 +43,7 @@ import lib from "@/scripts/lib"  //@->src를 가리킨다.  ../scripts/lib 이�
 export default{
   name:'CardComponent',
   props:{
-    item1:Object,  //상단 template에 Home.vue에서 넘어온 값을 쓸수 있다.
+    item1:Object,  //상단 template에 Home.vue에서 item1의 이름으로 넘어온 것것을 쓸수 있다.
   },
 
   setup(){
