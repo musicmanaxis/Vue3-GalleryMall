@@ -8,25 +8,25 @@
   <!-- <span>:특정 부분을 선택해 스타일을 적용하거나 조작할 때 주로 사용 -->
   <!-- <small> 태그: 의미(semantic)를 추가하면서 크기를 작게 만듭니다. -->
         <div class="card shadow-sm">
-          <span class="img" :style="{backgroundImage: `url(${item.imgPath})`}" />
+          <span class="img" :style="{backgroundImage: `url(${item1.imgPath})`}" />
           <!-- 위는 스타일을 css에서 js형태로 코딩한 것임 ->url을 수시로 바꿀필요도 없고 별도의 css를 작성하지 않아도 된다. -->
           <div class="card-body">
             <p class="card-text">
-              <span>{{ item.name }}&nbsp;</span>  
+              <span>{{ item1.name }}&nbsp;</span>  
               <span class="discount badge bg-danger">  
                 <!-- 부트스트랩제공(검색할것)badge:짧은 정보를 표시,  작은 크기의 텍스트와 테두리를 포함, 배경색이 채워짐. bg-danger:빨간색 배경 -->
-                {{ item.discountPrice}}% 할인
+                {{ item1.discountPrice}}% 할인
               </span>
             </p>
 
             <div class="d-flex justify-content-between align-items-center">
               <button class="btn btn-primary">구입하기</button>
-              <small class="price text-muted">정가:₩{{lib.getCommaFormated(item.price)  }}
+              <small class="price text-muted">정가:₩{{lib.getCommaFormated(item1.price)  }}
                                                 <!-- 3.자바스크립트에서 가져온 함수를 적용 -->
               </small>
           
               <small class="discount text-danger">
-                할인가격:₩{{ lib.getCommaFormated(item.price -(item.price*item.discountPrice/100)) }}
+                할인가격:₩{{ lib.getCommaFormated(item1.price -(item1.price*item1.discountPrice/100)) }}
               </small>
             </div>
           </div>
@@ -35,14 +35,15 @@
 
 </template>
 
+
 <script>
-//*1.숫자를 컴마로 변화하는 함수(getCommaFormated)를 자바스크립트 파일에 만들어 가져와서 사용함
+//*1.숫자를 컴마로 변화하는 함수(getCommaFormated)를 자바스크립트 lib.js을을 가져와서 사용
 import lib from "@/scripts/lib"  //@->src를 가리킨다.  ../scripts/lib 이렇게 해도 됨
 
 export default{
   name:'CardComponent',
   props:{
-    item:Object,  //상단 template에서 넘어온 값을 쓸수 있다.
+    item1:Object,  //상단 template에 Home.vue에서 넘어온 값을 쓸수 있다.
   },
 
   setup(){

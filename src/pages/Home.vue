@@ -10,8 +10,8 @@
           <div class="col" v-for= "(item, index) in state.items" :key="index">  
 <!-- state: 상태 관리용 객체. items: state 안의 배열로, 서버에서 가져온 데이터를 담음. item: items 배열의 각 요소로, 객체형태로 처리.-->
             {{ item.name }}
-            <Card :item="item"/>
-            <!-- item이라는 객체를 Card.vue에 넘긴다. 실제 디비 items테이블의 하나의 행(item)에 해당 -->
+            <Card :item1="item"/>
+            <!-- item1이라는 이름으로로 Card.vue에 넘긴다. 실제 디비 items테이블의 하나의 행(item)에 해당 -->
             
          </div>
        </div>
@@ -38,15 +38,15 @@ import { reactive } from 'vue';
         items:[]
     })
   //springServer에서 받아온 데이터를 state객체의 items 배열로 받는다.
-  //axios.get("/api/items")로 요청하면 서버로부터의 응답 객체(response)를 받아 그 객체 속성중에 data속성이 실제 data가 들어있어 처리
+  //axios.get("/api/items")로 요청하면 서버로부터의 응답 객체(object)를 받아 그 객체 속성중에 data속성이 실제 data가 들어있어 처리
      console.log('axios.get("/api/items"):'+ axios.get("/api/items"))
-     axios.get("/api/items").then((object)=>{   //then(({data})로 하면 바로 속성에 접급할수 있다.
+     axios.get("/api/items").then((object)=>{   //then(({data})로 중괄호를 쓰면면 바로 속성에 접급할수 있다.
      console.log('/api/items에서 가져온 배열:'+object.data+',  배열크기:'+object.data.length)
      state.items=object.data;
     })
-    //axios.get("/api/items")가 실행되면 Spring Boot 서버의 getItems() 메서드가 호출된다고 이해하면 됩니다. 
-    // 이게 클라이언트(Vue.js)와 서버(Spring Boot)가 통신하는 핵심
-    //vue.config.js파일 참조
+    //axios.get("/api/items")가 실행되면 Spring Boot 서버의 getItems() 메서드가 호출된다
+    // 이게 클라이언트(Vue.js)와 서버(Spring Boot)가 통신하는 핵심,  vue.config.js파일 참조
+    //object.data를 쓴 이유는 axios 라이브러리안에 data속성이 실제 데이터를 담고 있기 때문 
     return{
       state  //return을 하게 되면 상단의 template에서 쓸 수 있다.
     }
