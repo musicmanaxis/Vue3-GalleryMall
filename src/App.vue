@@ -32,7 +32,9 @@ import HeaderComponent from './components/Header.vue';
 //import HomeComponent from './pages/Home.vue';
 import FooterComponent from './components/Footer.vue';
 import store from './scripts/store.js';
-
+import axios from 'axios';
+import { useRoute } from 'vue-router';
+import { watch } from 'vue';
 
 export default {
   name: 'App',
@@ -43,17 +45,35 @@ export default {
    
   },
   setup(){
-    const id=sessionStorage.getItem("id");  
-    //sessionStorage는 웹 브라우저가 제공하는 API, 브라우저에서 데이터를 클라이언트 측에 저장하기 위해 사용, 해당 탭을 닫으면 저장된 데이터도 삭제
+    const check=()=>{  //url이 바뀔때마다 스프링의 AccountController의 check()를 통해 로그인 여부를 체크
+      axios.get("/api/account/check").then(({data})=>{
+        console.log(data);
+        store.commit('setAccount', data || 0);  //얻어온 id값이 있으면 setAccount에 전달, 없으면 0을 전달
+        })
+    };
+    
+    const route=useRoute();
 
-    if(id){
-      store.commit('setAccount', id); //이 코드는 새로고침을 했을 때 로그인 상태가 그대로 유지 된다.
-      //commit은 Vuex의 라이브러리에서 제공하는 내장 메서드 -> mutations를 호출하기 위해 사용
-    }
+    watch(route, ()=>{
+      check();
+    })
   }
 }
-// store.commit('setAccount', id)를 호출하면, Vuex의 mutations에 정의된 setAccount 함수가 호출되고, 
-// 여기에서 id가 두 번째 인자 값(sendId)로 전달됩니다. ->store.js참조
+
+//주석:기존 내용..브라우저의 세션스토리지를 이용해서 로그인여부를 체크
+
+//     const id=sessionStorage.getItem("id");  
+//     //sessionStorage는 웹 브라우저가 제공하는 API, 브라우저에서 데이터를 클라이언트 측에 저장하기 위해 사용, 해당 탭을 닫으면 저장된 데이터도 삭제
+
+//     if(id){
+//       store.commit('setAccount', id); //이 코드는 새로고침을 했을 때 로그인 상태가 그대로 유지 된다.
+//       //commit은 Vuex의 라이브러리에서 제공하는 내장 메서드 -> mutations를 호출하기 위해 사용
+//     }
+//   }
+// }
+
+// 주석:store.commit('setAccount', id)를 호출하면, Vuex의 mutations에 정의된 setAccount 함수가 호출되고, 
+// 주석:여기에서 id가 두 번째 인자 값(sendId)로 전달됩니다. ->store.js참조
 </script>
 
 
