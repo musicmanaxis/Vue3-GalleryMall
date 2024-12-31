@@ -46,13 +46,13 @@ export default {
   },
   setup(){
     const check=()=>{  //url이 바뀔때마다 스프링의 AccountController의 check()를 통해 로그인 여부를 체크
-      axios.get("/api/account/check").then(({data})=>{
-        console.log(data);
-        store.commit('setAccount', data || 0);  //얻어온 id값이 있으면 setAccount에 전달, 없으면 0을 전달
+      axios.get("/api/account/check").then((Object)=>{
+        console.log("/api/account/check 실행후 data:"+Object.data);
+        store.commit('setAccount', Object.data || 0);  //얻어온 id값이 있으면 setAccount에 전달, 없으면 0을 전달
         })
     };
     
-    const route=useRoute();
+    const route=useRoute();  //router.js에서 만든 라우터객체를 가져옴
 
     watch(route, ()=>{
       check();
