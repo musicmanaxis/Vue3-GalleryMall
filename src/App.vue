@@ -2,6 +2,14 @@
 개요:쇼핑몰 갤러리를 운영하는 목적으로 
 1.vue서버를 운영하는 프론트 서버와 spring 서버(GalleyrMallBackend)를 백앤드로 둔 프로젝트.
 
+src/
+├── main.js         # 애플리케이션 진입점 
+├── App.vue         # 최상위 컴포넌트
+├── router.js       # Vue Router 설정
+├── store           # Vuex 상태 관리 설정
+├── assets/         # 정적 파일 (CSS, 이미지 등)
+└── components/     # 컴포넌트
+
 2.사전설정
  2-1.package.json에서 로컬pc에서 스프링서버와 충돌을 피하기 위해 뷰서버 포트번호를 3000으로 변경 
      "scripts": {"serve": "vue-cli-service serve --port 3000"}
@@ -21,7 +29,7 @@
 
 <Header />
 <RouterView /> 
-<!-- router.js에서 vue-router가 제공하는 태그로  router.js에서 설정한 routes경로가 여기에 렌더링 된다. 별도로 import가 필요없음
+<!-- <RouterView /> 태그는 router.js에서 vue-router가 제공하는 태그로  router.js에서 설정한 routes경로가 여기에 렌더링 된다. 별도로 import가 필요없음
 이것으로 인해서 header와 footer는 가만히 있는 상태에서 url에 따라 중간화면이 home이나 login페이지가 바뀐다-->
 <!-- main.js에서 라우터를 설정하여 <Home />가 필요없게 하였다. -->
 <!-- <Home /> -->
@@ -58,8 +66,8 @@ export default {
 
     watch(route, ()=>{  
       check();    //라우터에 매핑되어 있는 리스트에서 url이 바뀔때마다 check()를 실행
-    })
-  }
+    }); 
+  } //setup()
 }
 
 //주석:기존 내용..브라우저의 세션스토리지를 이용해서 로그인여부를 체크
