@@ -91,10 +91,8 @@ import { reactive, computed } from 'vue';
       let result = 0;
 
       for (let item of state.items) {
-        console.log("item.price:"+item.price+", item.discodiscountPriceuntPer:"+item.discountPrice);
-
         result += item.price - item.price * item.discountPrice / 100;
-        console.log("result:"+result)
+       
       }
       
       return result;
