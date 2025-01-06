@@ -20,7 +20,9 @@
             </p>
 
             <div class="d-flex justify-content-between align-items-center">
-              <button class="btn btn-primary">구입하기</button>
+              <button class="btn btn-primary" @click="addToCart(item1.id)">
+                <i class="fa fa-shopping-cart" aria-hidden="true">카트아이콘</i>  <!-- https://fontawesome.com/v4/icon/shopping-cart 에서 복사함 -->
+              </button>
               <small class="price text-muted">정가:₩{{lib.getCommaFormated(item1.price)  }}
                                                 <!-- 3.자바스크립트에서 가져온 함수를 적용 -->
               </small>
@@ -39,6 +41,7 @@
 <script>
 //*1.숫자를 컴마로 변화하는 함수(getCommaFormated)를 자바스크립트 lib.js을을 가져와서 사용
 import lib from "@/scripts/lib"  //@->src를 가리킨다.  ../scripts/lib 이렇게 해도 됨
+import axios from 'axios';
 
 export default{
   name:'CardComponent',
@@ -47,7 +50,14 @@ export default{
   },
 
   setup(){
-    return{lib}  //2.가져온 것을 이렇게 선언하면 상단에서 쓸수 있다.
+    const addToCart=(itemId)=>{
+     axios.post(`/api/cart/items/${itemId}`).then(()=>{
+       console.log("장바구니에 담기 성공:"+itemId);
+     })
+     //`/api/cart/items/${itemId}`에서 스프링의 @PostMapping("/api/cart/items/{itemId}") 와 일치해야 한다
+     //대소문자도 구별한다.  ${itemId}와 스프링의 {ItemId}로 하는 바람에 오류가 발생했다.
+    }
+    return{lib, addToCart}  //2.가져온 것을 이렇게 선언하면 상단에서 쓸수 있다.
   }
 }
 
