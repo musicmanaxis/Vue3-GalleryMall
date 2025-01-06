@@ -2,6 +2,7 @@ import { createRouter,createWebHistory } from 'vue-router'
 import Home from '@/pages/Home.vue'
 import Login from '@/pages/Login.vue'
 import Cart from '@/pages/Cart.vue'
+import Order from '@/pages/Order.vue'
 import NotFound from '@/pages/NotFound.vue'
 
 
@@ -11,6 +12,7 @@ const routes=[
   {path:'/', component:Home},  //'/'로 들어올때는 Home으로 들어와라 는 뜻
   {path:'/login', component:Login},  ///http://localhost:3000/login 로 접속해볼 것
   {path:'/cart', component:Cart}, 
+  {path:'/order', component:Order},
   {path: '/:pathMatch(.*)*', component: NotFound },  //없는 주소를 입력했을 때 404 처리
 
 ]

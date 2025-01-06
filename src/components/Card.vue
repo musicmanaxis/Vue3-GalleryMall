@@ -21,7 +21,7 @@
 
             <div class="d-flex justify-content-between align-items-center">
               <button class="btn btn-primary" @click="addToCart(item1.id)">
-                <i class="fa fa-shopping-cart" aria-hidden="true">카트아이콘</i>  <!-- https://fontawesome.com/v4/icon/shopping-cart 에서 복사함 -->
+                <i class="fa fa-shopping-cart discount badge " aria-hidden="true"> 담기</i>  <!-- https://fontawesome.com/v4/icon/shopping-cart 에서 복사함 -->
               </button>
               <small class="price text-muted">정가:₩{{lib.getCommaFormated(item1.price)  }}
                                                 <!-- 3.자바스크립트에서 가져온 함수를 적용 -->
