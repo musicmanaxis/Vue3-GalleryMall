@@ -57,11 +57,13 @@
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="state.form.email">    <!-- 여기 수정함 -->
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="state.form.email">   
+       <!-- 여기 수정함 -->
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password">  <!-- v-model="state.form.password"는  input을 state.form.password연결하겠다는 뜻, 양방향 통신상태-->
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password"> 
+       <!-- v-model="state.form.password"는  input을 state.form.password연결하겠다는 뜻, 양방향 통신상태-->
       <label for="floatingPassword">Password</label>
     </div>
 
@@ -71,7 +73,8 @@
         Remember me
       </label>
     </div>
-    <button class="btn btn-primary w-100 py-2" @click="submit()">Sign in</button>   <!-- 여기 수정함 submit()-->
+    <button class="btn btn-primary w-100 py-2" @click="submit()">Sign in</button>   
+    <!-- 여기 수정함 submit()-->
     <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
   
 </div>
@@ -80,7 +83,7 @@
 <script>
 import axios from 'axios';
 import { reactive } from 'vue';
-import store from '../scripts/store.js'
+import store from '../scripts/store.js'  //vuex를 사용
 import router from '../scripts/router.js'
 
 
@@ -99,6 +102,7 @@ import router from '../scripts/router.js'
 //axios.get()은 서버로부터 데이터를 받아오는 메서드로, 인자는 요청 URL
       const submit=()=>{
           axios.post("api/account/login", state.form).then((res)=>{  //form이 아닌 form의 email과 password를 전송
+        // console.log("res.data="+res.data);
           store.commit('setAccount', res.data) ;  //res.data에는 로그인에 성공한 사용자의 ID 값
           sessionStorage.setItem("id", res.data); //브라우저가 제공하는 세션 스토리지에 사용자 ID를 저장하여, 페이지 새로고침 후에도 로그인 상태를 유지
           router.push({path:'/'});  //로그인 성공시 홈화면으로 이동
