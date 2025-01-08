@@ -1,5 +1,5 @@
 <!--개요:갤러리몰에서 처음 보여주는 메인 홈페이지
-    스프링 서버의 ItemController에서 데이터를 받아와 화면에 렌더링 하는 방식으로 처리되었음 -->
+    스프링 서버의 ItemController에서 데이터를 받아와 Card컴포넌트에 값을 넘겨 Card컴포넌트를 화면에 렌더링 하는 방식으로 처리되었음 -->
 
 <template>
  <div class="Home">
@@ -10,8 +10,7 @@
        <div class="col" v-for= "(item, index) in state.items" :key="index">  
 <!-- state: 상태 관리용 객체. items: state 안의 배열로, 서버에서 가져온 데이터를 담음. item: items 배열의 각 요소로, 객체형태로 처리.-->
          {{ item.name }} 
-         <Card :item1="item"/>
-          <!-- item1이라는 이름으로로 Card.vue에 넘긴다. 실제 디비 items테이블의 하나의 행(item)에 해당 -->
+         <Card :item1="item"/><!-- 핵심:**item1이라는 이름으로로 Card.vue에 넘긴다. 실제 디비 items테이블의 하나의 행(item)에 해당 -->
             
        </div>
      </div>

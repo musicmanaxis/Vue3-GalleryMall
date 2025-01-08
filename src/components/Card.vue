@@ -1,4 +1,7 @@
-<!-- 1.backgroundImage는 원래 css에서 background-image로 표기하지만 
+<!-- 
+  개요:그림하나하나에 해당 그림, 제목, 가격, 카트에 담기기능을 하나의 카드 형태로 제공, Home컴포넌트에 컴포넌트로 제공된다.
+
+     1.backgroundImage는 원래 css에서 background-image로 표기하지만 
                  vue는 :style을 적용할 때 자바스크립트 형식(캐멜스타일)으로 표시해야 되서 backgroundImage로 표시
      2.{}는 JavaScript에서 객체를 정의할 때 사용 -> 키(backgroundImage) :값(`url(${item.imgPath})`)으로 객체를 만듭니다.
      3.${}는 JavaScript 변수를 문자열에 포함시킬 수 있습니다.
@@ -12,7 +15,7 @@
           <!-- 위는 스타일을 css에서 js형태로 코딩한 것임 ->url을 수시로 바꿀필요도 없고 별도의 css를 작성하지 않아도 된다. -->
           <div class="card-body">
             <p class="card-text">
-              <span>{{ item1.name }}&nbsp;</span>  
+              <span >{{ item1.name }}&nbsp;</span>  
               <span class="discount badge bg-danger">  
                 <!-- 부트스트랩제공(검색할것)badge:짧은 정보를 표시,  작은 크기의 텍스트와 테두리를 포함, 배경색이 채워짐. bg-danger:빨간색 배경 -->
                 {{ item1.discountPrice}}% 할인
@@ -20,7 +23,7 @@
             </p>
 
             <div class="d-flex justify-content-between align-items-center">
-              <button class="btn btn-primary" @click="addToCart(item1.id)">
+              <button class="btn btn-primary" @click="addToCart(item1.id)"> <!--**카트에 담는 로직 하단 함수참조    -->
                 <i class="fa fa-shopping-cart discount badge " aria-hidden="true"> 담기</i>  <!-- https://fontawesome.com/v4/icon/shopping-cart 에서 복사함 -->
               </button>
               <small class="price text-muted">정가:₩{{lib.getCommaFormated(item1.price)  }}
