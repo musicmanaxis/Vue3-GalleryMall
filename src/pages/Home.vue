@@ -1,3 +1,6 @@
+<!--개요:갤러리몰에서 처음 보여주는 메인 홈페이지
+    스프링 서버의 ItemController에서 데이터를 받아와 화면에 렌더링 하는 방식으로 처리되었음 -->
+
 <template>
  <div class="Home">
   <div class="album py-5 bg-body-tertiary">
@@ -38,7 +41,7 @@ import { reactive } from 'vue';
      axios.get("/api/items").then((object)=>{   //then(({data})로 중괄호를 쓰면면 바로 속성에 접급할수 있다.
      state.items=object.data;
     });
-    //springServer에서 받아온 데이터를 state객체의 items 배열로 받는다.
+    //*spring ItemController에서 받아온 데이터를 state객체의 items 배열로 받는다.
     //axios.get("/api/items")로 요청하면 서버로부터의 응답 객체(object)를 받아 그 객체 속성중에 data속성이 실제 data가 들어있어 처리
     //axios.get("/api/items")가 실행되면 Spring Boot의 getItems() 메서드가 호출, Vue와 Spring Boot이 통신하는 핵심,  vue.config.js파일 참조
     //object.data를 쓴 이유는 axios 라이브러리안에 data속성이 실제 데이터를 담고 있기 때문 
