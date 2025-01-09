@@ -9,7 +9,7 @@
 
        <div class="col" v-for= "(item, index) in state.items" :key="index">  
 <!-- state: 상태 관리용 객체. items: state 안의 배열로, 서버에서 가져온 데이터를 담음. item: items 배열의 각 요소로, 객체형태로 처리.-->
-         <center><span style=" background-color: gold; font-size : 20pt; " >Title:{{ item.name }} </span></center>
+         <span style=" background-color: gold; font-size : 20pt; " >Title:{{ item.name }} </span>
          <Card :item1="item"/>
          <!-- 핵심:**item1이라는 이름으로로 Card.vue에 넘긴다. 실제 디비 items테이블의 하나의 행(item)에 해당 
               그림 하나에 해당하는 모든 정보(가격, 이미지, 제목 등)의 row객체를 넘기는 셈

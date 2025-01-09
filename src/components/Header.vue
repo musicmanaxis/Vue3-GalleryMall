@@ -11,10 +11,15 @@
               <li>
                 <router-link to="/" class="text-white">메인 화면</router-link>                
               </li>
+
+              <li v-if="$store.state.account.id">   <!-- 사용자가 로그인을 하였다면 /orders페이지로 이동 처리 -->
+                 <router-link to="/orders" class="text-white">주문 내역</router-link>                
+              </li>
+
               <li>
                 <router-link to="/login" class="text-white" v-if="!$store.state.account.id">로그인</router-link>
                 <!-- !$store.state.account.id가 없으면 로그인이 보이고 있으면 로그아웃이 보인다. -->
-                <a class="text-white" @click="logout()" v-else>로그아웃</a>                  
+                <a to="/login" class="text-white" @click="logout()" v-else>로그아웃</a>                  
               </li>
 <!-- <router-link>:Vue Router 라이브러리가 제공하는 컴포넌트(<a> 태그와 유사하게 동작), 
      페이지를 새로고침하지 않고 URL을 변경하며, 라우트와 연결된 컴포넌트를 표시,  to="/"는 라우터에서 정의된 루트 경로로 이동

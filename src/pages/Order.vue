@@ -101,10 +101,10 @@ import { reactive, computed } from 'vue';
 
      const submit=()=>{
        const args=JSON.parse(JSON.stringify(state.form));
-       args.item=JSON.stringify(state.items);
+       args.items=JSON.stringify(state.items);
 
       axios.post("/api/orders", args).then(()=>{
-        console.log("주문 성공")
+      console.log(args.item+"주문 성공");
       })
      }
 
