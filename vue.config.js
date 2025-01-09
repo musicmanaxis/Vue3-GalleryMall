@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
       proxy: {
           '/api': {
-              target: 'http://localhost:8080',
+              target: 'http://localhost:8080',   ///api로 시작하는 요청은 로컬에서 실행 중인 http://localhost:8080 서버로 전달
           }
       }
   }

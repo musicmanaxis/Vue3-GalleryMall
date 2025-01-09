@@ -1,18 +1,20 @@
-<!-- 
-  개요:그림하나하나에 해당 그림, 제목, 가격, 카트에 담기기능을 하나의 카드 형태로 제공, Home컴포넌트에 컴포넌트로 제공된다.
+<!-- 개요:그림하나하나에 해당 그림, 제목, 가격, 카트에 담기기능을 하나의 카드 형태로 제공, Home컴포넌트에 컴포넌트로 제공된다.
+ **<span class="img" :style="{backgroundImage: `url(${item1.imgPath})` }" />의 설명, :style="객체형태"로 설정
 
-     1.backgroundImage는 원래 css에서 background-image로 표기하지만 
-                 vue는 :style을 적용할 때 자바스크립트 형식(캐멜스타일)으로 표시해야 되서 backgroundImage로 표시
-     2.{}는 JavaScript에서 객체를 정의할 때 사용 -> 키(backgroundImage) :값(`url(${item.imgPath})`)으로 객체를 만듭니다.
-     3.${}는 JavaScript 변수를 문자열에 포함시킬 수 있습니다.
-     4.css에서  background-image: url('이미지 경로')가 기본문법
+    1.<span class="img" style="background-image: url('images/photo1.jpg');"> </span>의 css스타일을 vue형식으로 바꾼것
+    2. :style 스타일을 동적으로 설정한다는 뜻, background-image을 backgroundImage한 이유는 동적으로 할 때는 카멜표기법을 적용
+    3. {backgroundImage: `url(${item1.imgPath})`} 스타일을 객체형태로 설정하겠다는 뜻 객체형태-> { color: red} 
+    4.``(백틱)안에 ${}를 쓰면 객체.속성에 접근할 수 있다.
+    5.동적으로 바인딩 하면(변수를 사용) 변수안에 실제 값이 바뀌어도 따로 코드를 수정할 필요가 없다. 
+    
            -->
 <template>
   <!-- <span>:특정 부분을 선택해 스타일을 적용하거나 조작할 때 주로 사용 -->
   <!-- <small> 태그: 의미(semantic)를 추가하면서 크기를 작게 만듭니다. -->
         <div class="card shadow-sm">
-          <span class="img" :style="{backgroundImage: `url(${item1.imgPath})`}" />
-          <!-- 위는 스타일을 css에서 js형태로 코딩한 것임 ->url을 수시로 바꿀필요도 없고 별도의 css를 작성하지 않아도 된다. -->
+          <span class="img" :style="{backgroundImage: `url(${item1.imgPath})` }" />
+          <!-- *위는 스타일을 css에서 vue형태로 코딩한 것임 ->url을 수시로 바꿀필요도 없고 별도의 css를 작성하지 않아도 된다. -->
+
           <div class="card-body">
             <p class="card-text">
               <span >{{ item1.name }}&nbsp;</span>  
@@ -24,7 +26,8 @@
 
             <div class="d-flex justify-content-between align-items-center">
               <button class="btn btn-primary" @click="addToCart(item1.id)"> <!--**카트에 담는 로직 하단 함수참조    -->
-                <i class="fa fa-shopping-cart discount badge " aria-hidden="true"> 담기</i>  <!-- https://fontawesome.com/v4/icon/shopping-cart 에서 복사함 -->
+                <i class="fa fa-shopping-cart discount badge " aria-hidden="true"> 담기</i> 
+                 <!-- https://fontawesome.com/v4/icon/shopping-cart 에서 중간에 태그를 복사함 -->
               </button>
               <small class="price text-muted">정가:₩{{lib.getCommaFormated(item1.price)  }}
                                                 <!-- 3.자바스크립트에서 가져온 함수를 적용 -->
@@ -34,7 +37,7 @@
                 할인가격:₩{{ lib.getCommaFormated(item1.price -(item1.price*item1.discountPrice/100)) }}
               </small>
             </div>
-          </div>
+          </div>   <!-- <div class="card-body"> -->
         </div>
      
 
@@ -49,7 +52,7 @@ import axios from 'axios';
 export default{
   name:'CardComponent',
   props:{
-    item1:Object,  //상단 template에 Home.vue에서 item1의 이름으로 넘어온 것것을 쓸수 있다.
+    item1:Object,  //*상단 template에 Home.vue에서 item1의 이름으로 넘어온 객체를 쓸 수 있다.
   },
 
   setup(){
@@ -67,7 +70,7 @@ export default{
 
 </script>
 
-<style scoped>
+<style scoped>    /* scoped의 역할: 해당 Vue 컴포넌트에서만 스타일을 적용. */
 .card .img{
   display:inline-block;
   width:100%;
