@@ -35,26 +35,31 @@
 
               <div class="row g-3">
                 <div class="col-12"><label for="username" class="form-label">이름</label>
-                
+                  <input type="text" class="form-control" id="username" placeholder="Username" v-model="state.form.name">
                 </div>
+
                 <div class="col-12"><label for="address" class="form-label">주소</label>
-                  <input type="text" class="form-control" id="address">
+                  <input type="text" class="form-control" id="address" placeholder="주소입력" v-model="state.form.address" >
                 </div>
+
               </div>
               <hr class="my-4">
               <h4 class="mb-3">결제 수단</h4>
               <div class="my-3">
                 <div class="form-check">
-                  <input id="card" name="paymentMethod" type="radio" class="form-check-input" value="card" >
-                  <label class="form-check-label" for="card">신용카드 </label></div>
+                  <input id="card" name="paymentMethod" type="radio" class="form-check-input" value="card"  v-model="state.form.payment">
+                  <label class="form-check-label" for="card">신용카드 </label>
+                </div>
+
                 <div class="form-check">
-                  <input id="bank" name="paymentMethod" type="radio" class="form-check-input" value="bank" >
+                  <input id="bank" name="paymentMethod" type="radio" class="form-check-input" value="bank" v-model="state.form.payment">
                   <label class="form-check-label" for="bank">무통장입금</label>
                 </div>
               </div>
               <label for="cc-name" class="form-label">카드 번호</label>
-              <input type="text" class="form-control" id="cc-name" >
+              <input type="text" class="form-control" id="cc-name" v-model="state.form.cardNumber" >
               <hr class="my-4">
+              <button class="w-100 btn btn-primary btn-lg " @click="submit()">결제하기 </button>
              
             </div>
           </div>
@@ -78,7 +83,14 @@ import { reactive, computed } from 'vue';
   export default{
     setup(){
       const state=reactive({
-          items:[]
+          items:[],
+          form:{
+            name:"",
+            address:"",
+            payment:"",
+            cardNumber:"",
+            items:"",
+          }
       });
       const load=()=>{
         axios.get("/api/cart/items").then(({data})=>{
@@ -86,6 +98,15 @@ import { reactive, computed } from 'vue';
         state.items=data;
        })
       }
+
+     const submit=()=>{
+       const args=JSON.parse(JSON.stringify(state.form));
+       args.item=JSON.stringify(state.items);
+
+      axios.post("/api/orders", args).then(()=>{
+        console.log("주문 성공")
+      })
+     }
 
       const computedPrice = computed(() => {
       let result = 0;
@@ -100,7 +121,7 @@ import { reactive, computed } from 'vue';
 
      load();
 
-    return {state, lib, computedPrice }
+    return {state, lib, computedPrice, submit }
     }
   }
 
