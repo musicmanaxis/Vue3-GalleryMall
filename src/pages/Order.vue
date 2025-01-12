@@ -4,17 +4,14 @@
 <div class="container">   
   <main>
         <div class="py-5 text-center"><h2>주문하기</h2>
-          <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form
-            group has a validation state that can be triggered by attempting to submit the form without completing
-            it.</p></div>
+          <p class="lead">배송지와 결제 정보를 입력하시면 구매가 완료됩니다. 주문해 주셔서 감사합니다. </p></div>
 
         <div class="row g-5">
           <div class="col-md-5 col-lg-4 order-md-last"><h4
               class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">구입 목록</span>
 
-            <span
-                class="badge bg-primary rounded-pill"> {{ state.items.length }} </span></h4>
+            <span class="badge bg-primary rounded-pill"> {{ state.items.length }}개 </span></h4>
 
             <ul class="list-group mb-3">
               <li class="list-group-item d-flex justify-content-between lh-sm" v-for="(item, index) in state.items" :key="index">
@@ -35,11 +32,11 @@
 
               <div class="row g-3">
                 <div class="col-12"><label for="username" class="form-label">이름</label>
-                  <input type="text" class="form-control" id="username" placeholder="Username" v-model="state.form.name">
+                  <input type="text" class="form-control" id="username" placeholder="주문자 이름" v-model="state.form.name">
                 </div>
 
                 <div class="col-12"><label for="address" class="form-label">주소</label>
-                  <input type="text" class="form-control" id="address" placeholder="주소입력" v-model="state.form.address" >
+                  <input type="text" class="form-control" id="address" placeholder="주소 입력" v-model="state.form.address" >
                 </div>
 
               </div>
@@ -48,7 +45,7 @@
               <div class="my-3">
                 <div class="form-check">
                   <input id="card" name="paymentMethod" type="radio" class="form-check-input" value="card"  v-model="state.form.payment">
-                  <label class="form-check-label" for="card">신용카드 </label>
+                  <label class="form-check-label" for="card">신용카드 </label>   <!-- value값이 전송된다 -->
                 </div>
 
                 <div class="form-check">
@@ -94,6 +91,7 @@ import { reactive, computed } from 'vue';
             items:"",
           }
       });
+
       const load=()=>{  //장바구니에 있는 아이템을 보여주는 함수
         axios.get("/api/cart/items").then(({data})=>{  
           //스프링의 CartController에서 /api/cart/items해당하는 메서드 반환타입이 List형식이므로 뷰에서 배열(data)로 받는다.
@@ -103,13 +101,13 @@ import { reactive, computed } from 'vue';
         state.items=data;  //배열을 뷰의 배열에 담는다.
        })
       }
-      // 장바구니에 담은 아이템들을 가져와서  상태변수에 담는다.
-     const submit=()=>{
-       const args=JSON.parse(JSON.stringify(state.form));  //**깊은 복사->하단 내용 참조
+      
+     const submit=()=>{ 
+       const args=JSON.parse(JSON.stringify(state.form));  //주문자가 입력한 form 양식을 복사 **깊은 복사->하단 내용 참조
        args.items=JSON.stringify(state.items);             //args 객체의 items 속성만 JSON 형식의 문자열로 변환하는 작업
 
        //JSON.stringify()는 자바스크립트 배열(state.items)를 JSON 형식으로 변환하면서, 키에 다시 ""를 붙이는 작업
-       //**뷰에서 스프링으로 데이터를 전송할 때는 json형식으로 전송해야 하기 때문에 이와 같은 과정이 필요하다.
+       //**뷰에서 스프링으로 데이터를 전송할 때는 json형식으로 전송해야 하기 때문에 이와 같은 과정이 필요->스프링에서 dto로 받아 처리 
        
       axios.post("/api/orders", args).then(()=>{
       console.log("주문 성공:"+args.name);
@@ -148,6 +146,11 @@ import { reactive, computed } from 'vue';
 // JSON.stringify(state.form)는 state.form 객체를 JSON 문자열로 변환합니다.
 // JSON.parse()는 그 JSON 문자열을 다시 자바스크립트 객체로 변환합니다. 
 // 이 과정에서 새로운 객체가 생성되기 때문에, 원본 객체와는 독립적인 객체가 됩니다.
+
+// computed()는 반응형 계산된 값을 만들기 위해 사용
+// state.items가 변경될 때마다 총 가격을 다시 계산하고, 이전에 계산된 값은 캐시하여 불필요한 계산을 방지. 
+// 이로 인해 성능을 최적화하고, 상태가 변경될 때마다 UI가 자동으로 업데이트되도록 할 수 있습니다
+//일반함수는 매번 계산->성능 저하
 
 </script>
 
