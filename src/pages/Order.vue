@@ -75,6 +75,8 @@
 </template>
 
 <script>
+// 주문하기페이지:주문하기 위해서 필요한 정보를 입력하는 페이지
+
 import axios from 'axios';
 import lib from "@/scripts/lib";
 import { reactive, computed } from 'vue';
@@ -83,8 +85,8 @@ import { reactive, computed } from 'vue';
   export default{
     setup(){
       const state=reactive({
-          items:[],
-          form:{
+          items:[],  //배열
+          form:{     //객체, 사용자 입력 값이 즉시 반응형으로 업데이트되며, v-model을 통해 입력 폼에 바인딩
             name:"",
             address:"",
             payment:"",
@@ -92,19 +94,25 @@ import { reactive, computed } from 'vue';
             items:"",
           }
       });
-      const load=()=>{
-        axios.get("/api/cart/items").then(({data})=>{
-        console.log(data);
-        state.items=data;
+      const load=()=>{  //장바구니에 있는 아이템을 보여주는 함수
+        axios.get("/api/cart/items").then(({data})=>{  
+          //스프링의 CartController에서 /api/cart/items해당하는 메서드 반환타입이 List형식이므로 뷰에서 배열(data)로 받는다.
+          for (let i = 0; i < data.length; i++) {
+            console.log(`아이템 ${i + 1}:`, data[i]); // 배열에서 각 아이템을 출력
+          }
+        state.items=data;  //배열을 뷰의 배열에 담는다.
        })
       }
-
+      // 장바구니에 담은 아이템들을 가져와서  상태변수에 담는다.
      const submit=()=>{
-       const args=JSON.parse(JSON.stringify(state.form));
-       args.items=JSON.stringify(state.items);
+       const args=JSON.parse(JSON.stringify(state.form));  //**깊은 복사->하단 내용 참조
+       args.items=JSON.stringify(state.items);             //args 객체의 items 속성만 JSON 형식의 문자열로 변환하는 작업
 
+       //JSON.stringify()는 자바스크립트 배열(state.items)를 JSON 형식으로 변환하면서, 키에 다시 ""를 붙이는 작업
+       //**뷰에서 스프링으로 데이터를 전송할 때는 json형식으로 전송해야 하기 때문에 이와 같은 과정이 필요하다.
+       
       axios.post("/api/orders", args).then(()=>{
-      console.log(args.item+"주문 성공");
+      console.log("주문 성공:"+args.name);
       })
      }
 
@@ -120,12 +128,26 @@ import { reactive, computed } from 'vue';
      })//computedPrice
 
      load();
+     //사용자가 담아둔 상품 목록을 즉시 확인할 수 있는 역할
+     //해당 컴포넌트가 처음으로 로드될 때 데이터를 가져오고 초기화하는 역할을 수행하기 위해서
 
     return {state, lib, computedPrice, submit }
     }
   }
 
-  
+//왜 깊은 복사를 하는 걸까요?
+// 1. 얕은 복사(Shallow Copy)의 문제:
+// state.form 객체를 단순히 const args = state.form;처럼 할당하게 되면, args는 state.form을 참조하게 됩니다. 
+// 즉, args를 수정하면 state.form도 같이 수정됩니다. 이것은 우리가 원하지 않는 동작일 수 있어요.
+
+// 2. 깊은 복사:
+// JSON.parse(JSON.stringify())를 사용하면 state.form 객체의 깊은 복사가 이루어집니다. 
+// 이는 객체 내부의 모든 속성과 값을 새로운 메모리 공간에 복사해서 state.form을 수정해도 args는 영향을 받지 않게 해줍니다.
+
+// 어떻게 작동하나요?
+// JSON.stringify(state.form)는 state.form 객체를 JSON 문자열로 변환합니다.
+// JSON.parse()는 그 JSON 문자열을 다시 자바스크립트 객체로 변환합니다. 
+// 이 과정에서 새로운 객체가 생성되기 때문에, 원본 객체와는 독립적인 객체가 됩니다.
 
 </script>
 
