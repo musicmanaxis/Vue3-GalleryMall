@@ -29,17 +29,21 @@ import { reactive } from 'vue';
         console.log(data);
         state.items=data;
        })
-      }
+      };
+
       const state=reactive({
           items:[]
-      })
+      });
+
       const remove=(itemId)=>{
         axios.delete(`/api/cart/items/${itemId}`).then(()=>{
           load();
           console.log("장바구니에서 삭제 성공:"+itemId);
         })
-      }
+      };
+
       load(); //컴포넌트가 생성될 때 한번만 실행
+
       return {state, lib, remove}
     }
    
