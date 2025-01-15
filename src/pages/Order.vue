@@ -104,6 +104,7 @@ import router from '@/scripts/router';
       }
       
      const submit=()=>{ 
+       if(state.form.cardNumber.length<17){
        const args=JSON.parse(JSON.stringify(state.form));  //주문자가 입력한 form 양식을 복사 **깊은 복사->하단 내용 참조
        args.items=JSON.stringify(state.items);             //args 객체의 items 속성만 JSON 형식의 문자열로 변환하는 작업
 
@@ -115,6 +116,9 @@ import router from '@/scripts/router';
       alert("주문 완료")
      
       })
+     }else{
+       alert("Card Number")   //카드 넘버가 16자리 이상이면 예외처리  
+     }
      }
 
       const computedPrice = computed(() => {
