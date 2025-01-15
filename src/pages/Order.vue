@@ -77,6 +77,7 @@
 import axios from 'axios';
 import lib from "@/scripts/lib";
 import { reactive, computed } from 'vue';
+import router from '@/scripts/router';
 
 
   export default{
@@ -110,7 +111,9 @@ import { reactive, computed } from 'vue';
        //**뷰에서 스프링으로 데이터를 전송할 때는 json형식으로 전송해야 하기 때문에 이와 같은 과정이 필요->스프링에서 dto로 받아 처리 
        
       axios.post("/api/orders", args).then(()=>{
-      console.log("주문 성공:"+args.name);
+      router.push({path:"/orders"})
+      alert("주문 완료")
+     
       })
      }
 
