@@ -36,7 +36,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         <strong>Gallery</strong>
       </router-link>
-      <router-link to="/cart" class="cart btn">
+      
+      <router-link to="/cart" class="cart btn" v-if="$store.state.account.id"> <!-- 로그인으르 했을 때만 카트를 보여주기 -->
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>  <!-- https://fontawesome.com/v4/icon/shopping-cart 에서 복사함 -->
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,23 +52,29 @@
 <script>
 import router from '@/scripts/router';
 import store from '@/scripts/store';
+import axios from 'axios';
 
 export default{
   name:'HeaderComponent',
 
   setup(){
     const logout=()=>{
-      store.commit('setAccount', 0); //로그아웃시 store.js의 setAccount에 0을 넘겨줌
-      sessionStorage.removeItem("id"); //로그아웃시 브라우저의 세션스토리지에서 삭제
-      router.push({path:'/'});
-      
-    }
+      axios.post("/api/account/logout").then(()=>{
+        store.commit('setAccount', 0); //로그아웃시 store.js의 setAccount에 0을 넘겨줌
+       //sessionStorage.removeItem("id"); //로그아웃시 브라우저의 세션스토리지에서 삭제
+        router.push({path:'/'});
+      });
+     }
     return{logout}
   }
 }
 </script>
 
 <style scoped>
+header ul li a {
+  cursor: pointer;    /* 포인터 지정:테두리를 그린다. */
+}
+
 header .navbar .cart{
   margin-left:auto;    /* cart를 오른쪽으로 이동 */
   color: white;

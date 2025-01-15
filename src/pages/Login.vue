@@ -57,22 +57,23 @@
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="state.form.email">   
-       <!-- 여기 수정함 -->
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" 
+              @keyup.enter="submit()" v-model="state.form.email">  
+       <!-- 여기 수정함  @keyup.enter="submit()" 엔터를 누르면 submit() 실행-->
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password"> 
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" @keyup.enter="submit()" v-model="state.form.password"> 
        <!-- v-model="state.form.password"는  input을 state.form.password연결하겠다는 뜻, 양방향 통신상태-->
       <label for="floatingPassword">Password</label>
     </div>
 
-    <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault">
-        Remember me
+    <div class="checkbox mb-3">
+     <label>
+        <input type="checkbox" value="remember-me" @keyup.enter="submit()"> Remember me
       </label>
     </div>
+
     <button class="btn btn-primary w-100 py-2" @click="submit()">Sign in</button>   
     <!-- 여기 수정함 submit()-->
     <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
