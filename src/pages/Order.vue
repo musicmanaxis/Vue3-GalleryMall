@@ -117,7 +117,7 @@ import router from '@/scripts/router';
      
       })
      }else{
-       alert("Card Number")   //카드 넘버가 16자리 이상이면 예외처리  
+       alert("카드번호 자리가 16자리를 넘어섰습니다..올바른 번호를 입력하세요")   //카드 넘버가 16자리 이상이면 예외처리  
      }
      }
 
