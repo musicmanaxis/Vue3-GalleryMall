@@ -7,7 +7,7 @@
 import { createStore } from 'vuex'
 
 const store = createStore({ //createStore 함수로 Vuex 스토어를 생성합니다.
-  state () {  //상태:로그인한 사용자 ID와 같은 데이터를 저장.
+  state () {                //상태:로그인한 사용자 ID와 같은 데이터를 저장.
     return {
       account:{
         id:0,  //로그인한 사용자의 아이디 0으로 일단 초기화

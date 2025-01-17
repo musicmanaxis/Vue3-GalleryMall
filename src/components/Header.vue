@@ -22,7 +22,7 @@
                 <a to="/login" class="text-white" @click="logout()" v-else>로그아웃</a>                  
               </li>
 <!-- <router-link>:Vue Router 라이브러리가 제공하는 컴포넌트(<a> 태그와 유사하게 동작), 
-     페이지를 새로고침하지 않고 URL을 변경하며, 라우트와 연결된 컴포넌트를 표시,  to="/"는 라우터에서 정의된 루트 경로로 이동
+     페이지를 새로 고침하지 않고 URL을 변경하며, 라우트와 연결된 컴포넌트를 표시,  to="/"는 라우터에서 정의된 루트 경로로 이동
      $는 Vue가 기본적으로 제공하는 객체나 메서드라는 것을 명시적 표기법. 사용자가 정의한 변수나 메서드와 구분역할. 뷰에서 제대로 동작않 할 수도 있음
      -->
           </ul>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import router from '@/scripts/router';
+import router from '@/scripts/router';   //해당 스크립트에서 export한 명칭을 import문에 사용한다.
 import store from '@/scripts/store';
 import axios from 'axios';
 
