@@ -57,8 +57,7 @@
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" 
-              @keyup.enter="submit()" v-model="state.form.email">  
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" @keyup.enter="submit()" v-model="state.form.email">  
        <!-- 여기 수정함  @keyup.enter="submit()" 엔터를 누르면 submit() 실행-->
       <label for="floatingInput">Email address</label>
     </div>
@@ -71,7 +70,7 @@
     <div class="checkbox mb-3">
      <label>
         <input type="checkbox" value="remember-me" @keyup.enter="submit()"> Remember me
-      </label>
+     </label>
     </div>
 
     <button class="btn btn-primary w-100 py-2" @click="submit()">Sign in</button>   
@@ -91,32 +90,36 @@ import router from '../scripts/router.js'
   export default{
     setup(){
       const state=reactive({
-        form:{
+        form:{               //state객체안에 form객체를 가지고 form은 email과 password속성을 가지고 있음
           email:"",
           password:"",
         }
       })
-//state객체안에 form객체를 가지고 form은 email과 password속성을 가지고 있음, 로그인할 때 email과 password를 서버로 전송
 
-//axios.post("api/account/login", state.form)의 결과로 AccountController의 member.getId()값을 반환받음
+//**로그인시 사용자의 email과 password를 스프링에 전송하여 로그인에 성공하면 id값을 받아와 브라우저의 세션스토리지와 vuex의 상태를 저장시킨다.
 //axios.post()는 서버로 데이터를 전송하는 메서드로, 첫번째 인자는 요청 URL, 두번째 인자는 전송할 데이터
 //axios.get()은 서버로부터 데이터를 받아오는 메서드로, 인자는 요청 URL
+
       const submit=()=>{
-          axios.post("api/account/login", state.form).then((res)=>{  //form이 아닌 form의 email과 password를 전송
-          console.log("res.data="+res.data);
-          store.commit('setAccount', res.data) ;  //res.data에는 로그인에 성공한 사용자의 ID 값
-          sessionStorage.setItem("id", res.data); //브라우저가 제공하는 세션 스토리지에 사용자 ID를 저장하여, 페이지 새로고침 후에도 로그인 상태를 유지
-          router.push({path:'/'});  //로그인 성공시 홈화면으로 이동
+          axios.post("api/account/login", state.form).then((res)=>{  //form이 아닌 form의 email과 password를 전송, res는 사용자의 임의명칭
+          console.log("res.data="+res.data);      //data는 data는 Axios가 응답 객체에 포함시키는 공식 속성 이름이므로 다른 이름으로 변경할 수 없다.
+          store.commit('setAccount', res.data) ;  //#1.res.data에는 로그인에 성공한 사용자의 ID 값
+          sessionStorage.setItem("id", res.data); //#2.브라우저가 제공하는 세션 스토리지에 사용자 ID를 저장하여, 페이지 새로고침 후에도 로그인 상태를 유지
+          router.push({path:'/'});                //로그인 성공시 홈화면으로 이동
           window.alert("로그인 하였습니다.");
           
         }).catch(()=>{
           window.alert("로그인 실패하였습니다.");
         });
       }
-
       return {state, submit}  //script에서 정의하고 template에서 사용할 수 있도록 return
     }
   }
+//#1, #2 2개를 설정하는 이유->"새로고침 이후에도 사용자가 로그인 상태를 유지하기 위해 Vuex와 세션 스토리지(또는 로컬 스토리지)를 함께 사용한다."
+//사용자가 로그인하면  #1.서버에서 받은 사용자 ID를 뷰의 Vuex 상태에 저장. #2동시에 브라우저의  세션 스토리지에도 ID를 저장.
+//페이지가 새로고침되면 Vuex 상태가 초기화되므로, 애플리케이션이 세션 스토리지에서 사용자 ID를 가져와 Vuex 상태를 복구.
+// 이를 통해 새로고침 후에도 사용자는 로그아웃되지 않고, 애플리케이션은 정상적으로 작동합니다.
+
 //AccountController 참조
 // state.form은 클라이언트에서 서버로 전송할 로그인 데이터(email, password)를 담고 있습니다.
 // 이 데이터는 Spring AccountController의 @RequestBody Map<String, String> params에 매핑되어 처리됩니다.
