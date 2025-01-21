@@ -15,10 +15,13 @@ const store = createStore({ //createStore 함수로 Vuex 스토어를 생성합�
     }
   },
   mutations: {  //변경(mutations): 상태를 업데이트할 때 사용, 
-    setAccount(state, sendId){    //setAccount는 state.account.id 값을 변경하는 역할, state는 애플리케이션에서 관리할 데이터를 저장하는 곳
-      state.account.id=sendId;  //
+    setAccount(state, sendId){  //setAccount는 state.account.id 값을 변경하는 역할, state는 애플리케이션에서 관리할 데이터를 저장하는 곳
+      state.account.id=sendId;    
     }
   }
 })
 
 export default store
+//*state.account.id같이 처리이유
+//객체안에 객체를 넣은 이유는 계정관련은 account 객체, 설정 정보는 settings 객체, 알림 데이터는 notifications 객체에서 관리..
+// 이런식으로 그룹별로 처리하기 위해

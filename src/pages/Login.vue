@@ -86,8 +86,7 @@ import { reactive } from 'vue';
 import store from '../scripts/store.js'  //vuex를 사용
 import router from '../scripts/router.js'
 
-
-  export default{
+export default{
     setup(){
       const state=reactive({
         form:{               //state객체안에 form객체를 가지고 form은 email과 password속성을 가지고 있음
@@ -102,8 +101,8 @@ import router from '../scripts/router.js'
 
       const submit=()=>{
           axios.post("api/account/login", state.form).then((res)=>{  //form이 아닌 form의 email과 password를 전송, res는 사용자의 임의명칭
-          console.log("res.data="+res.data);      //data는 data는 Axios가 응답 객체에 포함시키는 공식 속성 이름이므로 다른 이름으로 변경할 수 없다.
-          store.commit('setAccount', res.data) ;  //#1.res.data에는 로그인에 성공한 사용자의 ID 값
+          console.log("res.data="+res.data);      //data는 Axios가 응답 객체에 포함시키는 공식 속성 이름이므로 다른 이름으로 변경할 수 없다.
+          store.commit('setAccount', res.data) ;  //#1.vuex상태변수에 res.data로 로그인에 성공한 사용자의 ID 값을 저장 
           sessionStorage.setItem("id", res.data); //#2.브라우저가 제공하는 세션 스토리지에 사용자 ID를 저장하여, 페이지 새로고침 후에도 로그인 상태를 유지
           router.push({path:'/'});                //로그인 성공시 홈화면으로 이동
           window.alert("로그인 하였습니다.");
@@ -118,7 +117,8 @@ import router from '../scripts/router.js'
 //#1, #2 2개를 설정하는 이유->"새로고침 이후에도 사용자가 로그인 상태를 유지하기 위해 Vuex와 세션 스토리지(또는 로컬 스토리지)를 함께 사용한다."
 //사용자가 로그인하면  #1.서버에서 받은 사용자 ID를 뷰의 Vuex 상태에 저장. #2동시에 브라우저의  세션 스토리지에도 ID를 저장.
 //페이지가 새로고침되면 Vuex 상태가 초기화되므로, 애플리케이션이 세션 스토리지에서 사용자 ID를 가져와 Vuex 상태를 복구.
-// 이를 통해 새로고침 후에도 사용자는 로그아웃되지 않고, 애플리케이션은 정상적으로 작동합니다.
+//이를 통해 새로고침 후에도 사용자는 로그아웃되지 않고, 애플리케이션은 정상적으로 작동합니다.
+//**로그인 만료시간은 스프링의 jwtServiceImpl에서 설정 */
 
 //AccountController 참조
 // state.form은 클라이언트에서 서버로 전송할 로그인 데이터(email, password)를 담고 있습니다.

@@ -59,10 +59,16 @@ export default{
 
   setup(){
     const logout=()=>{
-        axios.post("/api/account/logout").then(()=>{
+        axios.post("/api/account/logout").then((res)=>{
         store.commit('setAccount', 0);  // 로그아웃시  Vuex 상태 초기화, store.js의 setAccount에 0을 넘겨줌
+        alert(res.data);
         router.push({path:'/'});        // 로그아웃이후 메인페이지로 이동
         //sessionStorage.removeItem("id"); //세션 스토리지에서 사용자 ID삭제 - 현재는 Vuex로 상태를 관리하므로 비활성화
+        //새로고침을 할 경우 다시 sessionStorage에서 id를 가져오는 로직이 없으므로 sessionStorage.removeItem("id")을 생략해도 무방
+        //하지만 보안을 위해서 추가하는 것이 합당
+        console.log("HTTP 상태 코드:", res.status);       // 200
+        console.log("상태 텍스트:", res.statusText);      // "OK"
+        console.log("응답 데이터:", res.data);  
         
       });
     }
@@ -70,9 +76,9 @@ export default{
   }
 // 로그아웃  완벽 처리->프론트엔드(Vue)와 백엔드(Spring) 양쪽에서 처리.
 //1.백엔드(Spring):서버에 남아 있는 인증 정보를 삭제해야 하며, 보통 쿠키를 활용하여 처리. 
-//                 예를 들어, 쿠키의 값을 비우거나 만료시켜 클라이언트가 더 이상 인증 정보를 보낼 수 없도록 한다.
+//               예를 들어, 쿠키의 값을 비우거나 만료시켜 클라이언트가 더 이상 인증 정보를 보낼 수 없도록 한다.
 //2.프론트엔드(Vue):백엔드에서 인증 정보가 삭제된 후, 클라이언트 측에서도 Vuex 상태를 초기화하고, 
-//                  필요한 경우 리다이렉션(예: 메인 페이지 이동)을 처리한다.
+//               필요한 경우 리다이렉션(예: 메인 페이지 이동)을 처리한다.
    
 }
 </script>

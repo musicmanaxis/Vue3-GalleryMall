@@ -60,14 +60,15 @@ export default {
   setup(){
     const check=()=>{  //url이 바뀔때마다 스프링의 AccountController의 check()를 통해 로그인 여부를 체크
       axios.get("/api/account/check").then((Object)=>{
-        console.log("/api/account/check 실행후 data:"+Object.data);
+        console.log("App.vue에서 실행->스프링에 요청 후 data:"+Object.data);
         store.commit('setAccount', Object.data || 0);  //얻어온 id값이 있으면 setAccount에 전달, 없으면 0을 전달
         })
     };
-    
+//✔ **로그인 여부 체크는 "전역적인 동작"이라 App.vue에서 처리하는 게 적절.
+
     const route=useRoute();  //router.js에서 만든 라우터객체를 가져옴
 
-    watch(route, ()=>{  
+    watch(route, ()=>{   //✔ **라우터(URL)가 변경될 때마다 로그인 상태를 확인하는 것도 여기서 하는 게 좋아!
       check();    //라우터에 매핑되어 있는 리스트에서 url이 바뀔때마다 check()를 실행
     }); 
   } //setup()
