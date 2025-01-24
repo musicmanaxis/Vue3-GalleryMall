@@ -1,3 +1,4 @@
+//  주문을 하고 결제한 내역을 보여주는 페이지
 <template>
     <div class="orders"> <!-- 여기 수정  -->
 <!-- 아래하단 부터 https://getbootstrap.com/docs/5.0/examples/checkout/에서 소스보기 한 것을 복사해서 붙여넣기 -->
@@ -11,6 +12,7 @@
             <th>주소</th>
             <th>결제수단</th>
             <th>구입항목</th>
+            <th>주문날짜</th>
            </tr>
           </thead>
           <tbody>
@@ -24,6 +26,8 @@
                 <!-- v-for 디렉티브를 중첩하여 사용할 때, 상위 v-for에서 가져온 데이터를 하위 v-for에서 활용할 수 있다 -->
                 <!--order.items -> [{ "id": 2, "name": "Van-gogh", "imgPath": "/img/van-gogh.jpg", "price": 4500000, "discountPrice": 20 } ] -->
               </td>
+             <td>{{ order.orderDate.split('T').join('-') }}</td>
+
             </tr>
           </tbody>
        </table>
@@ -32,7 +36,7 @@
 </template>
 
 <script>
-//주문을 하고 결제한 내역을 보여주는 페이지
+
 import axios from 'axios';
 import lib from "@/scripts/lib";
 import { reactive } from 'vue';
@@ -55,9 +59,7 @@ import { reactive } from 'vue';
         //json은 키에 해당하는 것이 ""로 감싸져 있는데 이것을 제거하는 작업이 자바스크립트 객체로 만드는 parse변환 과정이다.
         
         if(object.items){   //object안에 items가 있다면
-          console.log("object.items:"+object.items)
           object.items=JSON.parse(object.items);  //items속성이 JSON 문자열이기 때문에 JavaScript 객체(혹은 배열)로 변환하고 다시 덮어씁니다
-          console.log("JSON.parse과정을 거친후 :"+object.items)
         }
         state.orders.push(object);  //push는 JavaScript 배열 메서드로 배열의 끝에 하나 이상의 요소를 추가하는 데 사용
       }//for

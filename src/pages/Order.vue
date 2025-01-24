@@ -90,6 +90,7 @@ import router from '@/scripts/router';
             payment:"",
             cardNumber:"",
             items:"",
+            orderDate:"",
           }
       });
 
@@ -104,16 +105,21 @@ import router from '@/scripts/router';
       }
       
      const submit=()=>{ 
-       if(state.form.cardNumber.length<17){
-       const args=JSON.parse(JSON.stringify(state.form));  //주문자가 입력한 form 양식을 복사 **깊은 복사->하단 내용 참조
-       args.items=JSON.stringify(state.items);             //args 객체의 items 속성만 JSON 형식의 문자열로 변환하는 작업
+       if(state.form.cardNumber.length<17){       
+        state.form.orderDate = new Date().toISOString().slice(0, 19); // ISO-8601 포맷의 주문 날짜 생성
+     //$주문날짜 입력하기 ->아직 실험중  
+        console.log("state.form.orderDate:", state.form.orderDate);
+
+        const args=JSON.parse(JSON.stringify(state.form));  //주문자가 입력한 form 양식을 복사 **깊은 복사->하단 내용 참조
+        args.items=JSON.stringify(state.items);             //args 객체의 items 속성만 JSON 형식의 문자열로 변환하는 작업
 
        //JSON.stringify()는 자바스크립트 배열(state.items)를 JSON 형식으로 변환하면서, 키에 다시 ""를 붙이는 작업
        //**뷰에서 스프링으로 데이터를 전송할 때는 json형식으로 전송해야 하기 때문에 이와 같은 과정이 필요->스프링에서 dto로 받아 처리 
-       
-      axios.post("/api/orders", args).then(()=>{
-      router.push({path:"/orders"})
-      alert("주문 완료")
+        console.log("서버로 보낼 데이터:", args);
+
+        axios.post("/api/orders", args).then(()=>{
+        router.push({path:"/orders"})
+        alert("주문 완료")
      
       })
      }else{
