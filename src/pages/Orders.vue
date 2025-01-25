@@ -26,8 +26,10 @@
                 <!-- v-for 디렉티브를 중첩하여 사용할 때, 상위 v-for에서 가져온 데이터를 하위 v-for에서 활용할 수 있다 -->
                 <!--order.items -> [{ "id": 2, "name": "Van-gogh", "imgPath": "/img/van-gogh.jpg", "price": 4500000, "discountPrice": 20 } ] -->
               </td>
-             <td>{{ order.orderDate.split('T').join('-') }}</td>
-
+              <!-- $$내가 추가 한것 -->
+              <td v-if="order.orderDate">{{ order.orderDate.split('T').join('-') }}</td>
+              <td v-else>주문날짜 없음</td>
+            
             </tr>
           </tbody>
        </table>
